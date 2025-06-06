@@ -16,7 +16,7 @@ const Home = () => {
   }, [])
  async function ReviewCode() {
     try {
-      const response = await axios.post('https://codereview-k5vdyfgx.b4a.run/ai/code-review', { code });
+      const response = await axios.post('https://code-reviewer-4gj7.vercel.app/ai/code-review', { code });
       setReview(response.data);
     } catch (error) {
       console.error("Error reviewing code:", error);
