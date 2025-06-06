@@ -16,7 +16,7 @@ const Home = () => {
   }, [])
  async function ReviewCode() {
     try {
-      const response = await axios.post('http://localhost:3000/ai/code-review', { code });
+      const response = await axios.post('https://codereview-k5vdyfgx.b4a.run/ai/code-review', { code });
       setReview(response.data);
     } catch (error) {
       console.error("Error reviewing code:", error);
