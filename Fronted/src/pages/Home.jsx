@@ -6,6 +6,7 @@ import Editor from "react-simple-code-editor"
 import Markdown from "react-markdown";
 import axios from "axios";
 const Home = () => {
+  const[loading, setLoading] = useState(false);
   const [code, setCode] = useState(`function add(a, b) {
                 return a + b;
                }`);
@@ -19,6 +20,8 @@ const Home = () => {
       setReview(response.data);
     } catch (error) {
       console.error("Error reviewing code:", error);
+    }finally {
+      setLoading(false);
     }
   }
   return (
@@ -48,10 +51,14 @@ const Home = () => {
             />
           </div>
           <button
-            onClick={ReviewCode}
+            onClick={() => {
+              setLoading(true);
+              ReviewCode();
+            }}
             className="mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded self-end"
+            disabled={loading}
           >
-            Review
+            {loading ? "Reviewing..." : "Review"}
           </button>
         </div>
         {/* Panel 2 */}
@@ -60,8 +67,7 @@ const Home = () => {
             <h2 className="text-xl font-semibold mb-4 text-gray-700">Output</h2>
             <pre className="whitespace-pre-wrap text-gray-800">
               <Markdown>
-                {review}
-
+                {loading ? "Please wait, reviewing your code..." : review}
               </Markdown>
             </pre>
           </div>
